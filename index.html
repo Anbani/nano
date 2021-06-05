@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>nanbani | Anbani.ge</title>
+    <style>
+        /* Base styles */
+        html {
+            background-color: #283593;
+        }
+    </style>
+    <link rel="stylesheet" href="src/style.css">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-68949004-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'UA-68949004-1');
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/anbani@2.0.2/dist/anbani.js" integrity="sha256-ifW1DybY/tDqAx/tiRsmb/kOGoNX0/Qr65hT+BOXKz4=" crossorigin="anonymous"></script>
+    <script src="src/app.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="logo">
+            <img src="src/anbani_nano.png" alt="">
+            <span class="tlogo">ანბანი</span>
+        </div>
+        <div class="converter">
+            <textarea class="textarea" id="input" oninput="inputListener()"
+                placeholder="შეიყვანეთ ტექსტი აქ..."></textarea>
+            <div class="results">
+            </div>
+        </div>
+        <div class="footer">
+            <a href="https://anbani.ge">anbani.ge</p>
+        </div>
+    </div>
+
+</body>
+
+</html>

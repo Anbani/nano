@@ -1,0 +1,19 @@
+{
+  "name": "nano-anbani",
+  "version": "1.0.0",
+  "description": "minimal version of anbani converter",
+  "main": "index.html",
+  "scripts": {
+    "test": "http-server  -c-1"
+  },
+  "keywords": [
+    "nano",
+    "anbani",
+    "georgian",
+    "alphabet",
+    "converter",
+    "anbani.js"
+  ],
+  "author": "georgegach",
+  "license": "MIT"
+}
