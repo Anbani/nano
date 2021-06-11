@@ -21,15 +21,7 @@ function inputListener() {
     results.innerHTML = "";
     if (inputArea.value == '')
         return
-    let scripts = [
-        "mkhedruli",
-        "mtavruli",
-        "asomtavruli",
-        "nuskhuri",
-        "phonetic",
-        "common",
-        "cyrillic",
-    ];
+    let scripts = anbani.data.keys;
     scripts.forEach((script) => {
         results.appendChild(
             `<button onclick="clickListener('${script}')" id="${script}Btn" class="result materialBtn">${anbani.core.interpret(
