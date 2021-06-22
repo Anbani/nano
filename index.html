@@ -1,47 +1,438 @@
 <!DOCTYPE html>
 <html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="title" content="Nano Anbani Converter"/>
+        <meta name="description" content="Minimal Georgian script converter built with anbani.js"/>
+        <meta name="author" content="@georgegach"/>
+        <title>Nano Anbani Converter</title>
+        <style>
+            :root {
+                --anbani-primary: #3f51b5;
+                --anbani-darker: #283593;
+                --anbani-white: #fafafa;
+            }
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>nano.anbani.ge</title>
-    <style>
-        /* Base styles */
-        html {
-            background-color: #283593;
-        }
-    </style>
-    <link rel="stylesheet" href="src/style.css">
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-68949004-1"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
-        gtag('config', 'UA-68949004-1');
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/anbani@2.0.5/dist/anbani.js"></script>
-    <script src="src/app.js"></script>
-</head>
+            @font-face {
+                font-family: "Noto Sans Georgian";
+                src: url("https://cdn.jsdelivr.net/gh/notofonts/NotoSansGeorgian@main/fonts/ttf/hinted/instance_ttf/NotoSansGeorgian-Regular.ttf")
+                    format("truetype");
+            }
 
-<body>
-    <div class="container">
-        <div class="logo">
-            <img src="src/anbani_nano.png" alt="">
-            <span class="tlogo">ანბანი</span>
-        </div>
-        <div class="converter">
-            <textarea class="textarea" id="input" oninput="inputListener()"
-                placeholder="შეიყვანეთ ტექსტი აქ..."></textarea>
-            <div class="results">
+            @font-face {
+                font-family: "Anbani Noto Sans";
+                src: url("https://cdn.jsdelivr.net/gh/Anbani/noto@main/AnbaniNotoSans-Regular.ttf")
+                    format("truetype");
+            }
+
+            @import url("https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap");
+            html,
+            body {
+                background-color: var(--anbani-darker);
+                margin: 0;
+                height: 100%;
+                overflow-y: overlay;
+            }
+
+            * {
+                font-family: "Noto Sans", "Noto Sans Georgian",
+                    "Anbani Noto Sans" !important;
+            }
+
+            .container {
+                opacity: 0;
+                display: flex;
+                flex-direction: column;
+                height: 100%;
+                align-items: center;
+                animation: containerLoaded 1s ease 0.2s forwards;
+
+            }
+
+
+            .logo {
+                display: grid;
+                place-items: center center;
+                color: white;
+                font-size: 2rem;
+                height: 20rem;
+                animation: converterLoaded 0.5s ease 1s forwards;
+                flex: 0 1 auto;
+            }
+
+            .logo svg {
+                width: 70px;
+                animation: logoLoaded 0.5s ease 0s forwards;
+            }
+
+            .logo .tlogo {
+                width: 100%;
+                text-align: center;
+                left: 0;
+                position: absolute;
+                line-height: 5rem;
+                opacity: 0;
+            }
+
+            .converter {
+                background-color: var(--anbani-white);
+                border-radius: 3rem 3rem 0rem 0rem;
+                width: 96vw;
+                box-sizing: border-box;
+                animation: converterLoaded 0.5s ease 0s forwards;
+                display: flex;
+                flex-direction: column;
+                flex: 1 1 auto;
+            }
+
+            .footer {
+                padding: 20px 0;
+                width: 96vw;
+                min-height: 4rem;
+                flex: 0 1 4rem;
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                align-items: center;
+                background-color: var(--anbani-white);
+                color: #ccc !important;
+            }
+
+            .footer a {
+                text-decoration: none;
+                color: #ccc !important;
+                padding: 0 10px;
+            }
+
+            .textarea {
+                border-radius: 3rem 3rem 0rem 0rem;
+                background-color: var(--anbani-white);
+                min-height: 10rem;
+                padding: 2rem;
+                outline: none;
+                border: none;
+                box-sizing: border-box;
+                font-size: 1rem;
+                width: 100%;
+                text-align: center;
+                overflow-y: hidden;
+            }
+
+            .results {
+                display: flex;
+                flex-direction: column;
+                box-sizing: border-box;
+                padding: 0.5rem;
+            }
+
+            .result {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .result .label {
+                margin-top: 1.5rem;
+                text-align: center;
+                color: #999;
+                font-size: 0.7rem;
+                flex: 0 0 auto;
+            }
+
+            .result .resultBtn {
+                border-radius: 999px;
+                flex: 0 0 auto;
+                max-height: 10rem;
+                box-sizing: border-box;
+                padding: 1rem;
+                color: white;
+                background-color: var(--anbani-primary);
+                margin-top: 0.5rem;
+                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12),
+                    0 1px 2px rgba(0, 0, 0, 0.24);
+            }
+
+            @keyframes converterLoaded {
+                from {
+                    transform: translateY(20%);
+                }
+                to {
+                    transform: translateY(0%);
+                }
+            }
+
+            @keyframes logoMinimized {
+                from {
+                    height: 20rem;
+                }
+                to {
+                    height: 5rem;
+                }
+            }
+
+            @keyframes logoUnminimized {
+                from {
+                    height: 5rem;
+                }
+                to {
+                    height: 20rem;
+                }
+            }
+
+            @keyframes logoLoaded {
+                from {
+                    opacity: 0;
+                    transform: translateY(-100%);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0%);
+                }
+            }
+
+            @keyframes logoUnloaded {
+                from {
+                    opacity: 1;
+                    transform: translateY(0%);
+                }
+                to {
+                    opacity: 0;
+                    transform: translateY(-100%);
+                }
+            }
+
+            @keyframes containerLoaded {
+                from {
+                    opacity: 0;
+                }
+                to {
+                    opacity: 1;
+                }
+            }
+
+            @media only screen and (max-height: 30rem) {
+                .logo {
+                    animation: logoMinimized 0.5s ease 0s forwards;
+                }
+                .logo .tlogo {
+                    animation: logoLoaded 0.5s ease 0s forwards;
+                }
+                .logo svg {
+                    animation: logoUnloaded 0.5s ease 0s forwards;
+                }
+            }
+
+            @media only screen and (min-height: 31rem) {
+                .logo {
+                    animation: logoUnminimized 0.5s ease 0s forwards;
+                }
+                .logo .tlogo {
+                    animation: logoUnloaded 0.5s ease 0s forwards;
+                }
+                .logo svg {
+                    animation: logoLoaded 0.5s ease 0s forwards;
+                }
+            }
+
+            .materialBtn {
+                position: relative;
+                display: inline-block;
+                box-sizing: border-box;
+                border: none;
+                vertical-align: middle;
+                text-align: center;
+                text-overflow: ellipsis;
+                overflow: hidden;
+                outline: none;
+                cursor: pointer;
+                transition: box-shadow 0.2s;
+            }
+
+            .materialBtn::-moz-focus-inner {
+                border: none;
+            }
+            /* Overlay */
+
+            .materialBtn::before {
+                content: "";
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                background-color: rgb(
+                    var(--pure-material-onprimary-rgb, 255, 255, 255)
+                );
+                opacity: 0;
+                transition: opacity 0.2s;
+            }
+            /* Ripple */
+
+            .materialBtn::after {
+                content: "";
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                border-radius: 50%;
+                padding: 50%;
+                width: 32px;
+                /* Safari */
+                height: 32px;
+                /* Safari */
+                background-color: rgb(
+                    var(--pure-material-onprimary-rgb, 255, 255, 255)
+                );
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(1);
+                transition: opacity 1s, transform 0.5s;
+            }
+            /* Active */
+
+            .materialBtn:active {
+                box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
+                    0 8px 10px 1px rgba(0, 0, 0, 0.14),
+                    0 3px 14px 2px rgba(0, 0, 0, 0.12);
+            }
+
+            .materialBtn:active::after {
+                opacity: 0.32;
+                transform: translate(-50%, -50%) scale(0);
+                transition: transform 0s;
+            }
+            /* Disabled */
+
+            .materialBtn:disabled {
+                color: rgba(var(--pure-material-onsurface-rgb, 0, 0, 0), 0.38);
+                background-color: rgba(
+                    var(--pure-material-onsurface-rgb, 0, 0, 0),
+                    0.12
+                );
+                box-shadow: none;
+                cursor: initial;
+            }
+
+            .materialBtn:disabled::before {
+                opacity: 0;
+            }
+
+            .materialBtn:disabled::after {
+                opacity: 0;
+            }
+            
+        </style>
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script
+            async
+            src="https://www.googletagmanager.com/gtag/js?id=UA-68949004-1"
+        ></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+
+            function gtag() {
+                dataLayer.push(arguments);
+            }
+            gtag("js", new Date());
+            gtag("config", "UA-68949004-1");
+        </script>
+    </head>
+
+    <body>
+        
+        <div class="container">
+            <div class="logo">
+                <svg
+                    style="filter: drop-shadow( 0px 0px 2px rgba(255,255,255,1)) drop-shadow( 0px 0px 50px rgba(255,255,255,1))"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 1550.98 2263.31"
+                >
+                    <defs>
+                        <style>
+                            .cls-1 {
+                                fill: #fafafa;
+                            }
+                        </style>
+                    </defs>
+                    <g id="Layer_2" data-name="Layer 2">
+                        <g id="Layer_1-2" data-name="Layer 1">
+                            <path
+                                class="cls-1"
+                                d="M830.76,1998.45c-251.27,0-455.69-204.87-455-456.15-69.91,114.18-139.29,240.16-147.92,376.33,178.84,299.16,587.28,421.46,901.3,269.24,80.2-130.46,124.18-284.68,107.45-438.69C1160.5,1898.61,1004.7,1998.45,830.76,1998.45Z"
+                            />
+                            <path
+                                class="cls-1"
+                                d="M1499.22,1275.45C1367.37,941.8,872,378.75,902.58,0,261.67,774.77,1640.52,1378,1201,2161.12,1499.18,1990.1,1632.68,1591,1499.22,1275.45Z"
+                            />
+                            <path
+                                class="cls-1"
+                                d="M186.28,1854.52c69.66-376,560.28-708.13,180.19-1085.3C351.32,1018,171,1218.38,65.39,1433.71-65.38,1708.4,5.1,2060.56,231.17,2263.31,177,2135.91,161.4,1990.86,186.28,1854.52Z"
+                            />
+                        </g>
+                    </g>
+                </svg>
+                <span class="tlogo">ანბანი</span>
+            </div>
+            <div class="converter">
+                <textarea
+                    class="textarea"
+                    id="input"
+                    autofocus
+                    oninput="inputListener()"
+                    placeholder="შეიყვანეთ ტექსტი აქ..."
+                ></textarea>
+                <div class="results"></div>
+            </div>
+            <div class="footer">
+                <a href="https://anbani.ge">anbani.ge</a>჻<a href="https://github.com/anbani/anbani.js">anbani.js</a>
             </div>
         </div>
-        <div class="footer">
-            <a href="https://anbani.ge">anbani.ge</p>
-        </div>
-    </div>
+        <script src="https://cdn.jsdelivr.net/npm/anbani"></script>
+        <script>
+            String.prototype.toElement = function () {
+                var template = document.createElement("template");
+                var html = this.trim(); // Never return a text node of whitespace as the result
+                template.innerHTML = html;
+                return template.content.firstChild;
+            };
 
-</body>
+            function clickListener(s) {
+                let txt = document.querySelector(`#${s}Btn`).innerText;
+                const body = document.querySelector("body");
+                const area = document.createElement("textarea");
+                body.appendChild(area);
+                area.value = txt;
+                area.select();
+                document.execCommand("copy");
+                body.removeChild(area);
+                console.log(txt, "copied");
+            }
 
+            function inputListener() {
+                results.innerHTML = "";
+                if (inputArea.value == "") return;
+                let scripts = anbani.data.keys;
+                let georgian = anbani.core.interpret(
+                    inputArea.value,
+                    "mkhedruli"
+                );
+                console.log(georgian);
+
+                scripts.forEach((script) => {
+                    results.appendChild(
+                        `<div class="result"><span class="label">${script}</span><button onclick="clickListener('${script}')" id="${script}Btn" class="resultBtn materialBtn">${anbani.core.convert(
+                            georgian,
+                            "mkhedruli",
+                            script
+                        )}</button></div>`.toElement()
+                    );
+                });
+            }
+
+            window.addEventListener("DOMContentLoaded", (event) => {
+                inputArea = document.querySelector("#input");
+                results = document.querySelector(".results");
+            });
+        </script>
+    </body>
 </html>
