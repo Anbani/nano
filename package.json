@@ -1,0 +1,24 @@
+{
+  "name": "nano",
+  "version": "1.0.0",
+  "description": "Nano Anbani Utility to convert Georgian texts",
+  "author": "georgegach",
+  "license": "MIT",
+  "main": "dpcs/index.html",
+  "scripts": {
+    "dev": "rm -rf docs/* && parcel --no-cache src/index.html --dist-dir docs/",
+    "build": "rm -rf docs/* && parcel build src/index.html --dist-dir docs/",
+    "start": "npm run dev"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.0",
+    "cssnano": "^5.0.12",
+    "parcel": "^2.0.1",
+    "postcss": "^8.4.4",
+    "postcss-import": "^14.0.2",
+    "tailwindcss": "^2.2.19"
+  },
+  "dependencies": {
+    "anbani": "^2.0.9"
+  }
+}

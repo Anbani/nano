@@ -1,0 +1,49 @@
+/* purgecss start ignore */
+
+@tailwind base;
+
+@font-face {
+    font-family: 'Anbani Noto Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url('https://cdn.jsdelivr.net/gh/Anbani/noto@main/fonts/AnbaniNotoSans-Regular.eot');
+    src: url('https://cdn.jsdelivr.net/gh/Anbani/noto@main/fonts/AnbaniNotoSans-Regular.eot?#iefix') format('embedded-opentype'),
+        url('https://cdn.jsdelivr.net/gh/Anbani/noto@main/fonts/AnbaniNotoSans-Regular.woff2') format('woff2'),
+        url('https://cdn.jsdelivr.net/gh/Anbani/noto@main/fonts/AnbaniNotoSans-Regular.woff') format('woff'),
+        url('https://cdn.jsdelivr.net/gh/Anbani/noto@main/fonts/AnbaniNotoSans-Regular.ttf') format('truetype'),
+        url('https://cdn.jsdelivr.net/gh/Anbani/noto@main/fonts/AnbaniNotoSans-Regular.svg#anbani_noto_sans_regular') format('svg');
+}
+
+
+html, body {
+    font-family: 'Noto Sans', 'Anbani Noto Sans', sans-serif;
+    height: 100%
+}
+
+
+@tailwind components;
+
+/* purgecss end ignore */
+
+@tailwind utilities;
+
+/* FONT DEFINITIONS */
+
+@layer components {
+    #results>div {
+        @apply flex flex-col mb-4;
+    }
+
+    #results>div>p {
+        @apply text-xs text-center text-indigo-400 font-sans
+    }
+
+    #results>div>button {
+        @apply select-none px-4 py-2 text-white bg-indigo-500 rounded-3xl shadow-md cursor-pointer outline-none focus:outline-none active:bg-indigo-50 active:text-indigo-500 hover:bg-indigo-700 transition-all
+    }
+
+    * {
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    }
+}
