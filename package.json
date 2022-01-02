@@ -4,7 +4,6 @@
   "description": "Nano Anbani Utility to convert Georgian texts",
   "author": "georgegach",
   "license": "MIT",
-  "main": "dpcs/index.html",
   "scripts": {
     "dev": "rm -rf docs/* && parcel --no-cache src/index.html --dist-dir docs/",
     "build": "rm -rf docs/* && parcel build src/index.html --dist-dir docs/",
