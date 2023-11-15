@@ -18,7 +18,7 @@ function inputListener() {
     if (inputArea.value != "")
         inputText = inputArea.value
 
-    let scripts = Object.keys(anbani.data.alphabets);
+    let scripts = Object.keys(anbani.data.alphabets).concat(['khutsuri', 'shanidziseuli', 'tfileliseuli']);
     let georgian = anbani.core.interpret(
         inputText,
         "mkhedruli"

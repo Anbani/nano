@@ -591,7 +591,11 @@ String.prototype.toElement = function() {
 function inputListener() {
     let inputText = "\u10D2\u10D0\u10DB\u10D0\u10E0\u10EF\u10DD\u10D1\u10D0";
     if (inputArea.value != "") inputText = inputArea.value;
-    let scripts = Object.keys((0, _anbaniDefault.default).data.alphabets);
+    let scripts = Object.keys((0, _anbaniDefault.default).data.alphabets).concat([
+        "khutsuri",
+        "shanidziseuli",
+        "tfileliseuli"
+    ]);
     let georgian = (0, _anbaniDefault.default).core.interpret(inputText, "mkhedruli");
     scripts.forEach((script)=>{
         document.querySelector(`#${script}Btn`).innerHTML = (0, _anbaniDefault.default).core.convert(georgian, "mkhedruli", script);
