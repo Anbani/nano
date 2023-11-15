@@ -10,14 +10,14 @@
     "start": "npm run dev"
   },
   "devDependencies": {
-    "autoprefixer": "^10.4.0",
-    "cssnano": "^5.0.12",
-    "parcel": "^2.0.1",
-    "postcss": "^8.4.4",
-    "postcss-import": "^14.0.2",
-    "tailwindcss": "^2.2.19"
+    "autoprefixer": "^10.4.16",
+    "cssnano": "^6.0.1",
+    "parcel": "^2.10.3",
+    "postcss": "^8.4.31",
+    "postcss-import": "^15.1.0",
+    "tailwindcss": "^3.3.5"
   },
   "dependencies": {
-    "anbani": "^2.0.9"
+    "anbani": "^2.3.2"
   }
 }

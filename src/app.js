@@ -61,6 +61,7 @@ function copy(e) {
 window.addEventListener("DOMContentLoaded", (event) => {
 
     window.copy = copy
+    window.anbani = anbani
 
     inputArea = document.querySelector("#inputArea");
     debugEl = document.querySelector("#debug");
