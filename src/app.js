@@ -18,12 +18,12 @@ function inputListener() {
     if (inputArea.value != "")
         inputText = inputArea.value
 
-    let scripts = anbani.data.keys;
+    let scripts = Object.keys(anbani.data.alphabets);
     let georgian = anbani.core.interpret(
         inputText,
         "mkhedruli"
     );
-
+    
     scripts.forEach((script) => {
         document.querySelector(`#${script}Btn`).innerHTML = anbani.core.convert(
             georgian,
@@ -31,6 +31,7 @@ function inputListener() {
             script
         );
     });
+    
 }
 
 function copyWithAPI(e) {
